@@ -1,0 +1,9 @@
+# Stealth Shielding
+*.log
+KH_VAULT_PRIVATE/
+purification_temp/
+config_secret.json
+.env
+# Obfuscation residues
+__pycache__/
+*.pyc
