@@ -1,31 +1,29 @@
-name: KH-AI-AAB-FINAL-SUCCESS
+name: KH-EMERGENCY-FIX-V4
 
 on:
-  workflow_dispatch: # 지휘관님이 수동으로 [Run workflow]를 누를 때 실행
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: 1. 설계도 로딩 (v4 적용)
+      - name: CHECKOUT_V4
         uses: actions/checkout@v4
 
-      - name: 2. 자바 환경 구축 (v4 적용)
+      - name: SETUP_JAVA_V4
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: gradle
 
-      - name: 3. 실행 권한 강제 부여
+      - name: PERMISSION_GRANT
         run: chmod +x gradlew
 
-      - name: 4. AAB 파일 물리적 이식
+      - name: BUILD_AAB
         run: ./gradlew bundleRelease
 
-      - name: 5. 파일 추출 (v4로 최종 해결)
-        uses: actions/upload-artifact@v4
+      - name: UPLOAD_ARTIFACT_V4_FINAL
+        uses: actions/upload-artifact@v4 # 여기서 v3를 쓰면 무조건 에러가 납니다. 반드시 v4 확인.
         with:
-          name: KIMHAN-100-AI-Bundle
+          name: KIMHAN-100-AI-FINAL
           path: app/build/outputs/bundle/release/*.aab
-          if-no-files-found: error # 파일이 없을 경우 즉시 에러 보고
